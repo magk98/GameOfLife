@@ -1,5 +1,5 @@
 # GameOfLife
-Game of life implemented in Java &amp JavaFX, following Conway's Game of life rules:
+Game of life implemented in Java & JavaFX, following Conway's Game of life rules:
 <ol>
   <li> Any alive cell with fewer than two alive neighbors dies, as if caused by under-population.</li>
   <li> Any alive cell with two or three alive neighbors lives on to the next generation.</li>
