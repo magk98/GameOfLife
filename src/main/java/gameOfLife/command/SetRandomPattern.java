@@ -5,14 +5,22 @@ import gameOfLife.model.Grid;
 import java.util.Random;
 
 /**
- * todo
+ * Class setting random pattern on the game grid.
  */
 public class SetRandomPattern implements SetPattern {
+    /**
+     * Method responsible for clearing game grid (setting all cells dead).
+     * @param grid Game of the life grid.
+     */
     @Override
     public void prepareGrid(Grid grid) {
         grid.clearCells();
     }
 
+    /**
+     * Method filling game grid with random pattern.
+     * @param grid Game of the life grid.
+     */
     @Override
     public void fillGrid(Grid grid) {
         Random random = new Random();

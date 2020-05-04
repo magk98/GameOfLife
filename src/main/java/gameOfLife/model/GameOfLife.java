@@ -14,11 +14,10 @@ import java.util.List;
 
 /**
  * Game of Life Instance Class, containing cell grid, handling updating grid in each tick
- * and capable of changing initial pattern and restarting game.
+ * and capable of changing playing/pausing and restarting game.
  */
 public class GameOfLife {
     private Grid grid;
-    private Pattern pattern;
     private Timeline timeline;
     private ChangePattern changePattern;
 
@@ -29,9 +28,8 @@ public class GameOfLife {
      */
     public GameOfLife(Grid grid, Pattern pattern) {
         setGrid(grid);
-        setPattern(pattern);
-        changePattern = new ChangePattern(grid);
-        changePattern.setPattern(pattern);
+        changePattern = new ChangePattern(grid, pattern);
+        changePattern.call();
         updateTimeline();
     }
 
@@ -45,36 +43,19 @@ public class GameOfLife {
     }
 
     /**
-     * Method responsible for setting next pattern on the grid after clicking Enter. Default order: <ol>
-     *     <li>Random Pattern</li>
-     *     <li>The Queen Bee Shuttle Pattern</li>
-     *     <li>Tumbler Pattern</li>
-     * </ol>
-     */
-    public void setNextPattern(){
-       setPattern(changePattern.getNextPattern(pattern));
-    }
-
-    /**
-     * Method responsible for playing the game after it was paused. Possible to trigger by clicking button or Space key.
+     * Method responsible for playing the game after it was paused.
+     * Possible to trigger by clicking play/pause button or Space key.
      */
     public void play() {
         timeline.play();
     }
 
     /**
-     * Method responsible for pausing the game. Possible to trigger by clicking button or Space key.
+     * Method responsible for pausing the game.
+     * Possible to trigger by clicking play/pause button or Space key.
      */
     public void pause() {
         timeline.pause();
-    }
-
-    /**
-     * Method responsible for clearing game grid, useful before setting new pattern on the grid.
-     */
-    public void clear() {
-        pause();
-        grid.clearCells();
     }
 
     private void playTick(){
@@ -90,8 +71,6 @@ public class GameOfLife {
         }
         grid.updateCells(nextStepCells);
     }
-
-
 
     private int countAliveNeighbours(int x, int y){
         return (int) getNeighbours(x, y).stream().filter(Cell::isAlive).count();
@@ -126,8 +105,11 @@ public class GameOfLife {
         this.grid = grid;
     }
 
-    private void setPattern(Pattern pattern) {
-        this.pattern = pattern;
+    /**
+     * Getter returning changePattern command.
+     * @return Command responsible for changing patterns on the game grid.
+     */
+    public ChangePattern getChangePattern() {
+        return changePattern;
     }
-
 }

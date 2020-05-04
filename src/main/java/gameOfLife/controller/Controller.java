@@ -26,8 +26,6 @@ public class Controller {
     @FXML
     private ToggleButton playButton;
 
-
-
     /**
      * Method setting game of life and initializing Screen.
      * @param gameOfLife Model of the game
@@ -95,8 +93,7 @@ public class Controller {
     private void onEnter(KeyEvent event){
         if(event.getCode().equals(KeyCode.ENTER)) {
             setRunning(false);
-            gameOfLife.clear();
-            gameOfLife.setNextPattern();
+            gameOfLife.getChangePattern().call();
         }
     }
 

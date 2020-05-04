@@ -1,7 +1,8 @@
 package gameOfLife.model;
 
 /**
- * Grid class which represents grid of cells in Game Of Life, contains information about every cell in the game. Every grid must be given positive width and height parameters
+ * Grid class which represents grid of cells in Game Of Life, contains information about every cell in the game.
+ * Every grid must be given positive width and height parameters
  */
 public class Grid {
     private int width;
@@ -39,6 +40,10 @@ public class Grid {
         return cells[x][y];
     }
 
+    /**
+     * Method initializing 2D array with dead cells.
+     * @return Initialized dead cells array.
+     */
     private Cell[][] initCells(){
         Cell[][] cells = new Cell[getWidth()][getHeight()];
         for (int i = 0; i < getWidth(); i++) {
@@ -50,6 +55,10 @@ public class Grid {
         return cells;
     }
 
+    /**
+     * Method updating array of cells following.
+     * @param updatedValueCells array representing new state of cells in the grid cell array.
+     */
     void updateCells(boolean[][] updatedValueCells){
         for(int x = 0; x < getWidth(); x++){
             for(int y = 0; y < getHeight(); y++)

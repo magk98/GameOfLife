@@ -1,16 +1,19 @@
 package gameOfLife.command;
 
-import gameOfLife.model.GameOfLife;
 import gameOfLife.model.Grid;
 
 import java.util.Random;
 
 /**
- *
+ * Class setting The Queen Bee Shuttle pattern on the game grid.
  */
 public class SetQueenBeePattern implements SetPattern{
     private int queenHeight = 7, queenWidth = 4;
 
+    /**
+     * Method responsible for clearing game grid (setting all cells dead) and checking if its size is not too small.
+     * @param grid Game of the life grid.
+     */
     @Override
     public void prepareGrid(Grid grid) {
         if(grid.getHeight() < queenHeight || grid.getWidth() < queenWidth) {
@@ -19,6 +22,10 @@ public class SetQueenBeePattern implements SetPattern{
         grid.clearCells();
     }
 
+    /**
+     * Method filling game grid with The Queen Bee Shuttle pattern.
+     * @param grid Game of the life grid.
+     */
     @Override
     public void fillGrid(Grid grid) {
         Random random = new Random();

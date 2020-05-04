@@ -5,11 +5,15 @@ import gameOfLife.model.Grid;
 import java.util.Random;
 
 /**
- * todo
+ * Class setting Tumbler pattern on the game grid.
  */
 public class SetTumblerPattern implements SetPattern {
     private int tumblerHeight = 6, tumblerWidth = 7;
 
+    /**
+     * Method responsible for clearing game grid (setting all cells dead) and checking if its size is not too small.
+     * @param grid Game of the life grid.
+     */
     @Override
     public void prepareGrid(Grid grid) {
         if(grid.getHeight() < tumblerHeight || grid.getWidth() < tumblerWidth)
@@ -17,6 +21,10 @@ public class SetTumblerPattern implements SetPattern {
         grid.clearCells();
     }
 
+    /**
+     * Method filling game grid with Tumbler pattern.
+     * @param grid Game of the life grid.
+     */
     @Override
     public void fillGrid(Grid grid) {
         Random random = new Random();
