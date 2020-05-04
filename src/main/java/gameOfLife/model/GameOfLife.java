@@ -12,12 +12,19 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
 
+/**
+ * Game of Life Instance Class, containing cell grid, handling updating grid in each tick and capable of changing initial pattern and restarting game.
+ */
 public class GameOfLife {
     private Grid grid;
     private Pattern pattern;
     private Timeline timeline;
 
-
+    /**
+     * Creates single Game Of Life instance and sets its grid and initial pattern.
+     * @param grid Grid with game of life cells.
+     * @param pattern Initial pattern chosen from defaults patterns, i. e. The Queen Bee Shuttle, Tumbler or random pattern.
+     */
     public GameOfLife(Grid grid, Pattern pattern) throws Exception {
         setGrid(grid);
         setPattern(pattern);
@@ -26,6 +33,7 @@ public class GameOfLife {
     }
 
     private void updateTimeline() {
+        // 1000 ms / 30 (frequency) = approx. 33ms per tick
         Duration duration = new Duration(Duration.millis(1000).divide(GameOfLifeApplication.getFREQUENCY()).toMillis());
         EventHandler<ActionEvent> eventHandler = event -> playTick();
         KeyFrame keyFrame = new KeyFrame(duration, eventHandler);
@@ -91,6 +99,13 @@ public class GameOfLife {
         }
     }
 
+    /**
+     * Method responsible for setting next pattern on the grid after clicking Enter. Default order: <ol>
+     *     <li>Random Pattern</li>
+     *     <li>The Queen Bee Shuttle Pattern</li>
+     *     <li>Tumbler Pattern</li>
+     * </ol>
+     */
     public void setNextPattern(){
         try {
             Pattern[] patterns = Pattern.values();
@@ -103,13 +118,23 @@ public class GameOfLife {
         }
     }
 
+    /**
+     * Method responsible for playing the game after it was paused. Possible to trigger by clicking button or Space key.
+     */
     public void play() {
         timeline.play();
     }
+
+    /**
+     * Method responsible for pausing the game. Possible to trigger by clicking button or Space key.
+     */
     public void pause() {
         timeline.pause();
     }
 
+    /**
+     * Method responsible for clearing game grid, useful before setting new pattern on the grid.
+     */
     public void clear() {
         pause();
         clearCells();
@@ -162,6 +187,10 @@ public class GameOfLife {
         else return index % limit;
     }
 
+    /**
+     * Getter returning current Game of Life Grid.
+     * @return grid in the current state.
+     */
     public Grid getGrid() {
         return grid;
     }

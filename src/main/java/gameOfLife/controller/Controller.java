@@ -12,7 +12,9 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 
-
+/**
+ * Class responsible for initializing JavaFX components, controlling the game flow on the JavaFX scene and responding to user actions.
+ */
 public class Controller {
     private GameOfLife gameOfLife;
     private int cellSize;
@@ -24,18 +26,20 @@ public class Controller {
     private ToggleButton playButton;
 
 
-    @FXML
-    private void initialize(){
-        playButton.selectedProperty().addListener(((observable, oldValue, newValue) -> {
 
-        }));
-    }
-
-    public void setGameOfLife(GameOfLife gameOfLife) {
+    /**
+     * Method setting game of life and initializing Screen.
+     * @param gameOfLife Model of the game
+     */
+    public void setGameOfLifeScreen(GameOfLife gameOfLife) {
         this.gameOfLife = gameOfLife;
         initializeScreen();
     }
 
+    /**
+     * Setter setting size of the cells displayed on the JavaFX scene.
+     * @param CellSize - size of the cell in pixels.
+     */
     public void setCellSize(int CellSize){
         this.cellSize = CellSize;
     }
@@ -87,7 +91,7 @@ public class Controller {
     }
 
     @FXML
-    public void onEnter(KeyEvent event){
+    private void onEnter(KeyEvent event){
         if(event.getCode().equals(KeyCode.ENTER)) {
             setRunning(false);
             gameOfLife.clear();
@@ -96,7 +100,7 @@ public class Controller {
     }
 
     @FXML
-    public void onPlayPause(ActionEvent event) {
+    private void onPlayPause(ActionEvent event) {
         setRunning(!isRunning());
         if(isRunning) {
             getGameOfLife().play();

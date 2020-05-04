@@ -3,6 +3,9 @@ package gameOfLife.model;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 
+/**
+ * Basic element of the Game of Life, represents single cell on the grid
+ */
 public class Cell {
     private final BooleanProperty AliveProperty = new SimpleBooleanProperty();
 
