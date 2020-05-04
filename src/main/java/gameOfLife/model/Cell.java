@@ -29,7 +29,7 @@ public class Cell {
      * Sets current cell alive property
      * @param isAlive if the cell is alive, false if it's dead
      */
-    void setIsAlive(boolean isAlive){
+    void setAlive(boolean isAlive){
         AliveProperty.setValue(isAlive);
     }
 }

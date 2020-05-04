@@ -19,11 +19,14 @@ import java.io.IOException;
 public class GameOfLifeApplication extends Application {
     private static final int WIDTH = 50;
     private static final int HEIGHT = 50;
+    private static final Pattern INITIAL_PATTERN = Pattern.RANDOM;
     private static final int CELL_SIZE = 10;
     private static final int FREQUENCY = 30;
     private static final String TITLE = "GameOfLife";
     private static final String VIEW_RESOURCE_PATH = "/view.fxml";
     private static GameOfLife gameOfLife;
+    private static Parent view;
+    private static FXMLLoader fxmlLoader;
 
     /**
      * Start extended from the JavaFX Application class, setting all the necessary functionality for JavaFX components,
@@ -33,16 +36,9 @@ public class GameOfLifeApplication extends Application {
      */
     @Override
     public void start(Stage primaryStage) throws IOException {
-        primaryStage.setTitle(TITLE);
-        primaryStage.setOnCloseRequest(event -> Platform.exit());
-        primaryStage.setResizable(false);
-        primaryStage.sizeToScene();
-        FXMLLoader fxmlLoader = new FXMLLoader();
-        fxmlLoader.setLocation(GameOfLifeApplication.class.getResource(VIEW_RESOURCE_PATH));
-        Parent view = fxmlLoader.load();
-        Controller controller = fxmlLoader.getController();
-        controller.setCellSize(CELL_SIZE);
-        controller.setGameOfLifeScreen(gameOfLife);
+        initPrimaryStage(primaryStage);
+        initFXMLLoader();
+        initController();
         primaryStage.setScene(new Scene(view));
         primaryStage.show();
     }
@@ -54,7 +50,7 @@ public class GameOfLifeApplication extends Application {
     public static void main(String[] args) {
         try {
             Grid grid = new Grid(WIDTH, HEIGHT);
-            gameOfLife = new GameOfLife(grid, Pattern.RANDOM);
+            gameOfLife = new GameOfLife(grid, INITIAL_PATTERN);
             launch(args);
         } catch (Exception e){
             System.out.println(e.getMessage());
@@ -69,4 +65,23 @@ public class GameOfLifeApplication extends Application {
         return FREQUENCY;
     }
 
+    private void initPrimaryStage(Stage primaryStage){
+        primaryStage.setTitle(TITLE);
+        primaryStage.setOnCloseRequest(event -> Platform.exit());
+        primaryStage.setResizable(false);
+        primaryStage.sizeToScene();
+    }
+
+    private void initFXMLLoader() throws IOException{
+        fxmlLoader = new FXMLLoader();
+        fxmlLoader.setLocation(GameOfLifeApplication.class.getResource(VIEW_RESOURCE_PATH));
+        view = fxmlLoader.load();
+
+    }
+
+    private void initController(){
+        Controller controller = fxmlLoader.getController();
+        controller.setCellSize(CELL_SIZE);
+        controller.setGameOfLifeScreen(gameOfLife);
+    }
 }

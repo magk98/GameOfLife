@@ -16,11 +16,17 @@ public class Grid {
     public Grid(int width, int height){
         this.setWidth(width);
         this.setHeight(height);
-        this.setCells(setInitialCellsFalse());
+        this.setCells(initCells());
     }
 
-    void setCellIsAlive(int x, int y, boolean isAlive){
-        this.cells[x][y].setIsAlive(isAlive);
+    /**
+     * Setting cell at the given coordinates alive value.
+     * @param x - horizontal coordinate of the cell
+     * @param y - vertical coordinate of the cell
+     * @param isAlive whether the cell is alive or not
+     */
+    public void setCellAlive(int x, int y, boolean isAlive){
+        this.cells[x][y].setAlive(isAlive);
     }
 
     /**
@@ -33,15 +39,30 @@ public class Grid {
         return cells[x][y];
     }
 
-    private Cell[][] setInitialCellsFalse(){
+    private Cell[][] initCells(){
         Cell[][] cells = new Cell[getWidth()][getHeight()];
         for (int i = 0; i < getWidth(); i++) {
             for (int j = 0; j < getHeight(); j++) {
                 cells[i][j] = new Cell();
-                cells[i][j].setIsAlive(false);
+                cells[i][j].setAlive(false);
             }
         }
         return cells;
+    }
+
+    void updateCells(boolean[][] updatedValueCells){
+        for(int x = 0; x < getWidth(); x++){
+            for(int y = 0; y < getHeight(); y++)
+                setCellAlive(x, y, updatedValueCells[x][y]);
+        }
+    }
+
+    /**
+     * Method clearing all cells in the grid (setting all Cells dead).
+     */
+    public void clearCells(){
+        boolean[][] clearedCells = new boolean[getWidth()][getHeight()];
+        updateCells(clearedCells);
     }
 
     /**
@@ -53,7 +74,7 @@ public class Grid {
     }
 
     private void setWidth(int width) {
-        if(width < 0) throw new IllegalArgumentException("Width must be positive");
+        if(width <= 0) throw new IllegalArgumentException("Width must be positive");
         this.width = width;
     }
 
@@ -66,7 +87,7 @@ public class Grid {
     }
 
     private void setHeight(int height) {
-        if(height < 0) throw new IllegalArgumentException("Height must be positive");
+        if(height <= 0) throw new IllegalArgumentException("Height must be positive");
         this.height = height;
     }
 

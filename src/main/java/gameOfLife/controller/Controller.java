@@ -13,7 +13,8 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 
 /**
- * Class responsible for initializing JavaFX components, controlling the game flow on the JavaFX scene and responding to user actions.
+ * Class responsible for initializing JavaFX components, controlling the game flow on the JavaFX scene
+ * and responding to user actions.
  */
 public class Controller {
     private GameOfLife gameOfLife;
